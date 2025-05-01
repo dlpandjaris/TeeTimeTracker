@@ -3,34 +3,35 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
+import pytz
 import os
 
 app = Flask(__name__)
 
 # Course Data
 bookateetime_courses = {
-  'Shoal Creek': '118-1',
-  'Hodge Park': '117-1',
-  'WinterStone': '62-1',
-  'Adams Pointe': '45-1',
-  'Heart of America': '49-1',
-  'Sycamore Ridge': '44-1',
-  'Paradise Pointe - The Outlaw': '24-1',
-  'Paradise Pointe - The Posse': '24-2',
+  'Shoal Creek Golf Course': '118-1',
+  'Hodge Park Golf Course': '117-1',
+  'Winterstone Golf Course': '62-1',
+  'Adams Pointe Golf Course': '45-1',
+  'Heart of America Golf Course': '49-1',
+  'Sycamore Ridge Golf Club': '44-1',
+  'Paradise Pointe Golf Course - The Outlaw': '24-1',
+  'Paradise Pointe Golf Course - The Posse': '24-2',
 }
 
 golfback_courses = {
-  'Dubs Dread': '398d44ce-a908-4ce7-8f50-e5f4bdc77b73',
-  'Painted Hills': '857a12d4-a9cf-4a43-afe2-60940bdc7438',
-  'Drumm Farm - Full': 'd70999c9-d7d4-4008-9f41-4e9551b3c796',
-  'Drumm Farm - Executive': '9a1de435-8a46-4840-9cdc-332c3cfea782',
-  'Royal Meadows': 'd2278228-4700-4354-95a8-422a8f9a5a16'
+  "Dub's Dread Golf Club": '398d44ce-a908-4ce7-8f50-e5f4bdc77b73',
+  'Painted Hills Golf Club': '857a12d4-a9cf-4a43-afe2-60940bdc7438',
+  'Drumm Farm Golf Club - Full': 'd70999c9-d7d4-4008-9f41-4e9551b3c796',
+  'Drumm Farm Golf Club - Executive': '9a1de435-8a46-4840-9cdc-332c3cfea782',
+  'Royal Meadows Golf Club': 'd2278228-4700-4354-95a8-422a8f9a5a16'
 }
 
 foreup_courses = {
-  'Teetering Rocks': 7341,
-  'Heritage Park': 12159,
-  'Tomahawk Hills': 11026,
+  'Teetering Rocks Golf Course': 7341,
+  'Heritage Park Golf Course': 12159,
+  'Tomahawk Hills Golf Course': 11026,
 }
 
 
@@ -70,7 +71,8 @@ def get_tee_times():
     tee_times = [
       {
         'course': course_name,
-        'tee_time': pd.to_datetime(tt['dateTime']).tz_localize(None),
+        'tee_time': pd.to_datetime(tt['dateTime'], format='%Y-%m-%dT%H:%M:%S%z') \
+          .astimezone(pytz.timezone("US/Central")).strftime("%Y-%m-%d %H:%M:%S"),
         'price': float(tt['rates'][0]['price']),
         'players': tt['playersMax']
       }
@@ -100,7 +102,7 @@ def get_tee_times():
     ]
     tee_times_df = pd.concat([tee_times_df, pd.DataFrame(tee_times)], ignore_index=True)
 
-  tee_times_df['tee_time'] = pd.to_datetime(tee_times_df['tee_time'], utc=True)
+  # tee_times_df['tee_time'] = pd.to_datetime(tee_times_df['tee_time'], utc=True)
 
   return jsonify(tee_times_df.to_dict(orient='records'))
 
@@ -108,4 +110,4 @@ def get_tee_times():
 if __name__ == '__main__':
   # app.run(debug=True)
   port = int(os.environ.get("PORT", 8080))
-  app.run(host='0.0.0.0', port=port)
+  app.run(host='0.0.0.0', port=port, debug=True)
