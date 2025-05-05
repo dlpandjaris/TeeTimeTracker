@@ -6,21 +6,20 @@ import tee_time_service
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/tee_times": {"origins": [
-  "http://localhost:4200",
-  "https://regal-muse-263204.web.app"
-]}})
+CORS(app)
+# , resources={r"/tee_times": {"origins": [
+#   "http://localhost:4200",
+#   "https://regal-muse-263204.web.app"
+# ]}})
 
 @app.route('/tee_times', methods=['GET', 'OPTIONS'])
 def get_tee_times():
   if request.method == 'OPTIONS':
     # CORS preflight
-    return '', 200
+    return '', 204
   
-
   date = request.args.get('date', default=datetime.today().strftime('%Y-%m-%d'))
   players = int(request.args.get('players', 4))
-
   tee_times_df = tee_time_service.get_tee_times(date, players)
 
   return jsonify(tee_times_df.to_dict(orient='records'))
