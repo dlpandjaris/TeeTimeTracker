@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
 from datetime import datetime
 import os
@@ -16,13 +16,17 @@ CORS(app)
 def get_tee_times():
   if request.method == 'OPTIONS':
     # CORS preflight
-    return '', 204
-  
-  date = request.args.get('date', default=datetime.today().strftime('%Y-%m-%d'))
-  players = int(request.args.get('players', 4))
-  tee_times_df = tee_time_service.get_tee_times(date, players)
+    response = make_response('', 204)
+  else:
+    date = request.args.get('date', default=datetime.today().strftime('%Y-%m-%d'))
+    players = int(request.args.get('players', 4))
+    tee_times_df = tee_time_service.get_tee_times(date, players)
+    response = make_response(jsonify(tee_times_df.to_dict(orient='records')))
 
-  return jsonify(tee_times_df.to_dict(orient='records'))
+  response.headers['Access-Control-Allow-Origin'] = request.headers.get('Origin', '*')
+  response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
+  response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+  return response
 
 
 if __name__ == '__main__':
