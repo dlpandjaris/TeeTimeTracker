@@ -11,8 +11,13 @@ CORS(app, resources={r"/tee_times": {"origins": [
   "https://regal-muse-263204.web.app"
 ]}})
 
-@app.route('/tee_times', methods=['GET'])
+@app.route('/tee_times', methods=['GET', 'OPTIONS'])
 def get_tee_times():
+  if request.method == 'OPTIONS':
+    # CORS preflight
+    return '', 200
+  
+
   date = request.args.get('date', default=datetime.today().strftime('%Y-%m-%d'))
   players = int(request.args.get('players', 4))
 
