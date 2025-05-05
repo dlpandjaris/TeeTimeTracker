@@ -55,7 +55,7 @@ def search_bookateetime(date, players):
         href = tee_time_div.find('a', class_='btn')['href']
         tt = {
           'course': course.name,
-          'tee_time': pd.to_datetime(tee_time_div['data-date-time'], format='%Y%m%d%H%M'), #tee_time_div['data-date-time'],
+          'tee_time': pd.to_datetime(tee_time_div['data-date-time'], format='%Y%m%d%H%M').tz_localize('US/Central').tz_convert('UTC'),
           'price': float(tee_time_div['data-price']),
           'players': int(tee_time_div['data-available']),
           'lat': course.lat,
@@ -109,7 +109,7 @@ def search_foreup(date, players):
       url = f"https://foreupsoftware.com/index.php/api/booking/times?time=all&date={flip_date}&holes=all&players={players}&booking_class=14824&schedule_id={course.id}&api_key=no_limits"
       headers = {
         "User-Agent": "Mozilla/5.0",
-        "Referer": f"https://foreupsoftware.com/index.php/booking/22857/7340",
+        "Referer": f"https://foreupsoftware.com/index.php/booking/{course.id}/7340",
         "Content-Type": "application/json",
       }
       params = {
@@ -119,14 +119,15 @@ def search_foreup(date, players):
 
       response = requests.get(url, headers=headers, json=params)
       tee_times_raw = response.json()
-
+      
       tee_times = []
       for tee_time in tee_times_raw:
         # print(tee_time)
         # break
         tt = {
           'course': course.name,
-          'tee_time': pd.to_datetime(tee_time['time'], format='%Y-%m-%d %H:%M'),
+          'tee_time': pd.to_datetime(tee_time['time'], format='%Y-%m-%d %H:%M') \
+            .tz_localize('US/Central').tz_convert('UTC'),
           'price': float(tee_time['green_fee'] + tee_time['cart_fee']),
           'players': tee_time['available_spots'],
           'lat': course.lat,
@@ -143,5 +144,3 @@ if __name__ == "__main__":
   date = "2025-05-04"
   players = 4
   tee_times_df = get_tee_times(date, players)
-  print(tee_times_df.columns)
-  print(tee_times_df['tee_time'])
