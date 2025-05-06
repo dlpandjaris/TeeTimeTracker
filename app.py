@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request, make_response
 from flask_cors import CORS
 from datetime import datetime
+import json
 import os
-import tee_time_service
+# import tee_time_service
+import tee_time_service_threaded
 
 
 app = Flask(__name__)
@@ -19,14 +21,14 @@ def get_tee_times():
   else:
     date = request.args.get('date', default=datetime.today().strftime('%Y-%m-%d'))
     players = int(request.args.get('players', 4))
-    tee_times_df = tee_time_service.get_tee_times(date, players)
-    response = make_response(jsonify(tee_times_df.to_dict(orient='records')))
+    coords = json.loads(request.args.get('coords', default=None))
+    tee_times = tee_time_service_threaded.get_tee_times(date, players, coords)
+    response = make_response(jsonify(tee_times))
 
-  # response.headers['Access-Control-Allow-Origin'] = request.headers.get('Origin', '*')
-  # response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
-  # response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+  response.headers['Access-Control-Allow-Origin'] = request.headers.get('Origin', '*')
+  response.headers['Access-Control-Allow-Methods'] = 'GET, OPTIONS'
+  response.headers['Access-Control-Allow-Headers'] = 'Content-Type'    
   return response
-
 
 if __name__ == '__main__':
   # app.run(debug=True)

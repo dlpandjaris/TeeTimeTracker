@@ -13,32 +13,25 @@ with open('./golf_courses.json', 'r') as f:
 
 courses = [GolfCourse(**course) for course in courses_data]
 
-
 def get_tee_times(date, players):
   """
   Get tee times for a given date and number of players from various golf courses.
   
   Args:
-    date (str): The date for which to get tee times in 'YYYY-MM-DD' format.
-    players (int): The number of players.
+      date (str): The date for which to get tee times in 'YYYY-MM-DD' format.
+      players (int): The number of players.
 
   Returns:
-    pd.DataFrame: A DataFrame containing the tee times, prices, and other details.
+      list[dict]: A list of tee time dictionaries.
   """
-  # Initialize an empty DataFrame to store the results
-  tee_times_df = pd.DataFrame()
+  tee_times = []
 
-  btt_tee_times = search_bookateetime(date, players)
-  tee_times_df = pd.concat([tee_times_df, pd.DataFrame(btt_tee_times)], ignore_index=True)
+  # Collect tee times from each source
+  tee_times += search_bookateetime(date, players)
+  tee_times += search_golfback(date, players)
+  tee_times += search_foreup(date, players)
 
-  gb_tee_times = search_golfback(date, players)
-  tee_times_df = pd.concat([tee_times_df, pd.DataFrame(gb_tee_times)], ignore_index=True)
-
-  fu_tee_times = search_foreup(date, players)
-  tee_times_df = pd.concat([tee_times_df, pd.DataFrame(fu_tee_times)], ignore_index=True)
-
-  return tee_times_df
-
+  return tee_times
 
 def search_bookateetime(date, players):
   tee_times = []
@@ -119,7 +112,7 @@ def search_foreup(date, players):
 
       response = requests.get(url, headers=headers, json=params)
       tee_times_raw = response.json()
-      
+
       tee_times = []
       for tee_time in tee_times_raw:
         # print(tee_time)
