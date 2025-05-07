@@ -21,7 +21,9 @@ def get_tee_times():
   else:
     date = request.args.get('date', default=datetime.today().strftime('%Y-%m-%d'))
     players = int(request.args.get('players', 4))
-    coords = json.loads(request.args.get('coords', default=None))
+    coords = request.args.get('coords', default=None)
+    if coords:
+      coords = json.loads(coords)
     tee_times = tee_time_service_threaded.get_tee_times(date, players, coords)
     response = make_response(jsonify(tee_times))
 

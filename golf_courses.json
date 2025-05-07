@@ -2,7 +2,6 @@
   {
     "id": "118-1",
     "name": "Shoal Creek Golf Course",
-    "holes": 18,
     "lat": 39.2528261,
     "lon": -94.4788154,
     "source": "bookateetime"
@@ -10,7 +9,6 @@
   {
     "id": "117-1",
     "name": "Hodge Park Golf Course",
-    "holes": 18,
     "lat": 39.2532934,
     "lon": -94.4939931,
     "source": "bookateetime"
@@ -18,7 +16,6 @@
   {
     "id": "62-1",
     "name": "Winterstone Golf Course",
-    "holes": 18,
     "lat": 39.1250818,
     "lon": -94.3787228,
     "source": "bookateetime"
@@ -26,7 +23,6 @@
   {
     "id": "45-1",
     "name": "Adams Pointe Golf Course",
-    "holes": 18,
     "lat": 39.019879,
     "lon": -94.2414334,
     "source": "bookateetime"
@@ -34,7 +30,6 @@
   {
     "id": "49-1",
     "name": "Heart of America Golf Course",
-    "holes": 9,
     "lat": 38.991176,
     "lon": -94.5260483,
     "source": "bookateetime"
@@ -42,7 +37,6 @@
   {
     "id": "44-1",
     "name": "Sycamore Ridge Golf Club",
-    "holes": 18,
     "lat": 38.7565789,
     "lon": -94.840674,
     "source": "bookateetime"
@@ -50,7 +44,6 @@
   {
     "id": "24-1",
     "name": "Paradise Pointe Golf Course - The Outlaw",
-    "holes": 18,
     "lat": 39.4232906,
     "lon": -94.5514754,
     "source": "bookateetime"
@@ -58,7 +51,6 @@
   {
     "id": "24-2",
     "name": "Paradise Pointe Golf Course - The Posse",
-    "holes": 18,
     "lat": 39.4230916,
     "lon": -94.5472098,
     "source": "bookateetime"
@@ -66,7 +58,6 @@
   {
     "id": "47-1",
     "name": "Minor Park Golf Course",
-    "holes": 18,
     "lat": 38.9218788,
     "lon": -94.5789712,
     "source": "bookateetime"
@@ -74,7 +65,6 @@
   {
     "id": 6633,
     "name": "Falcon Lakes Golf Club",
-    "holes": 18,
     "lat": 39.1650505,
     "lon": -94.910161,
     "source": "chronogolf"
@@ -82,7 +72,6 @@
   {
     "id": "398d44ce-a908-4ce7-8f50-e5f4bdc77b73",
     "name": "Dub's Dread Golf Club",
-    "holes": 18,
     "lat": 39.1685497,
     "lon": -94.8752899,
     "source": "golfback"
@@ -90,7 +79,6 @@
   {
     "id": "857a12d4-a9cf-4a43-afe2-60940bdc7438",
     "name": "Painted Hills Golf Club",
-    "holes": 18,
     "lat": 39.1242683,
     "lon": -94.7417212,
     "source": "golfback"
@@ -98,7 +86,6 @@
   {
     "id": "d70999c9-d7d4-4008-9f41-4e9551b3c796",
     "name": "Drumm Farm Golf Club - Full",
-    "holes": 18,
     "lat": 39.0620829,
     "lon": -94.3981964,
     "source": "golfback"
@@ -106,7 +93,6 @@
   {
     "id": "9a1de435-8a46-4840-9cdc-332c3cfea782",
     "name": "Drumm Farm Golf Club - Executive",
-    "holes": 9,
     "lat": 39.0620829,
     "lon": -94.3981964,
     "source": "golfback"
@@ -114,7 +100,6 @@
   {
     "id": "d2278228-4700-4354-95a8-422a8f9a5a16",
     "name": "Royal Meadows Golf Club",
-    "holes": 18,
     "lat": 39.0336354,
     "lon": -94.4583346,
     "source": "golfback"
@@ -122,7 +107,6 @@
   {
     "id": 7341,
     "name": "Teetering Rocks Golf Course",
-    "holes": 18,
     "lat": 38.9628262,
     "lon": -94.4396519,
     "source": "foreup"
@@ -130,7 +114,6 @@
   {
     "id": 12159,
     "name": "Heritage Park Golf Course",
-    "holes": 18,
     "lat": 38.8273693,
     "lon": -94.7550834,
     "source": "foreup"
@@ -138,7 +121,6 @@
   {
     "id": 11026,
     "name": "Tomahawk Hills Golf Course",
-    "holes": 18,
     "lat": 38.9971895,
     "lon": -94.7900334,
     "source": "foreup"
@@ -146,9 +128,22 @@
   {
     "id": "https://www.sunflowerhillsgolfcourse.com/TeeTimes",
     "name": "Sunflower Hills Golf Course",
-    "holes": 18,
     "lat": 39.1037935,
     "lon": -94.8676643,
     "source": "loner"
+  },
+  {
+    "id": "overland",
+    "name": "Overland Park Golf Complex",
+    "lat": 38.8981327,
+    "lon": -94.7259369,
+    "source": "cps"
+  },
+  {
+    "id": "colberthills",
+    "name": "Colbert Hills Golf Course",
+    "lat": 39.2126393,
+    "lon": -96.640805,
+    "source": "cps"
   }
 ]
